@@ -8,6 +8,25 @@ lang='accept-language: en-US,en;q=0.8'
 agent='user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
 app='accept: application/json, text/javascript, */*; q=0.01'
 
+uriencode() {
+  s="${1//' '/'%20'}"
+  s="${s//'"'/'%22'}"
+  s="${s//'#'/'%23'}"
+  s="${s//'$'/'%24'}"
+  s="${s//'&'/'%26'}"
+  s="${s//'+'/'%2B'}"
+  s="${s//','/'%2C'}"
+  s="${s//'/'/'%2F'}"
+  s="${s//':'/'%3A'}"
+  s="${s//';'/'%3B'}"
+  s="${s//'='/'%3D'}"
+  s="${s//'?'/'%3F'}"
+  s="${s//'@'/'%40'}"
+  s="${s//'['/'%5B'}"
+  s="${s//']'/'%5D'}"
+  printf %s "$s"
+}
+
 curl -s "https://123movieshd.tv/ajax/suggest_search?keyword=$q" -H "$enc" -H "$req" -H "$lang" -H "$agent" -H "$app" -H 'referer: https://123movieshd.tv/' -H 'authority: 123movieshd.tv' -H "$cookie" --compressed|\
   sed 's/</\n</g'|\
   grep href|\
@@ -33,5 +52,11 @@ done|grep 'id-data'|grep 'title'|cut -d\" -f2,8|sort -u|
       id="$(echo $line|cut -d\" -f2)"  
       wget -q "https://embed.123movieshd.tv/embedjw.php?id=$id" -O-|\
         grep googlev|\
-        cut -d\' -f2
+        cut -d\' -f2|while read url
+       do
+         url="$(uriencode "$url")"
+         wget -q "https://is.gd/create.php?format=simple&url=$url" -O-
+         echo ""
+       done
     done
+
