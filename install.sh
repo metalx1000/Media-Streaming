@@ -10,3 +10,4 @@ fi
 
 cp -v music/myFreeMP3/musicplay.sh /usr/local/bin/musicplay
 cp -v videos/123movies/123movies.sh /usr/local/bin/123movies
+cp -v videos/stream-tv-series/stream-tv-series.sh /usr/local/bin/stream-tv-series.sh
