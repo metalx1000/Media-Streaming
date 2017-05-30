@@ -10,6 +10,7 @@ then
 fi
 
 q="$1"
+
 playlist="/tmp/ytmusic.m3u"
 
 echo "https://www.youtube.com/results?search_query=$q"
@@ -21,6 +22,13 @@ wget -O- -q "https://www.youtube.com/results?search_query=$q"|\
   while read list;
   do
     echo "http://youtube.com${list}";
-  done|shuf > "$playlist"
+  done > "$playlist"
+
+if [ "$2" == "shuf" ]
+then
+  echo "shuffling.."
+  shuf "$playlist" > /tmp/shuf
+  mv /tmp/shuf "$playlist"
+fi
 
   mpv --vid=no --playlist="$playlist"
