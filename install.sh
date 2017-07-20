@@ -13,4 +13,5 @@ cp -v music/youtube/ytmusic.sh /usr/local/bin/ytmusic
 cp -v music/youtube/ytplaylist.sh /usr/local/bin/ytplaylist
 
 cp -v videos/123movies/123movies.sh /usr/local/bin/123movies
+cp -v videos/youtube/ytvideo.sh /usr/local/bin/ytvideo
 #cp -v videos/stream-tv-series/stream-tv-series.sh /usr/local/bin/stream-tv-series
