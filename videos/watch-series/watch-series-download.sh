@@ -36,7 +36,7 @@ do
   echo "${dom}${l}"
   d="$(echo "${dom}${l}"|cut -d\| -f1)"
   dd="$(wget -q -O- "$d"|grep yourupload|cut -d\" -f6|sed 's/embed/watch/g')"
-  t="$(echo "${dom}${l}"|cut -d\| -f2)"
+  t="$(echo "${dom}${l}"|cut -d\| -f2|tr ":" "-")"
   youtube-dl "$dd" -o "${t}.mp4"
 
   #echo "${red}########### DOWNLOADING $t - $ddd #############${default}"
