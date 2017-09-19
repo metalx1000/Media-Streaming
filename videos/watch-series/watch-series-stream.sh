@@ -51,10 +51,10 @@ d="$(sed "${s}q;d" $tmp|cut -d\| -f1)"
 t="$(sed "${s}q;d" $tmp|cut -d\| -f2)"
 echo "$d"
 #mpv "$(wget -q -O- "$d"|grep yourupload|cut -d\" -f6|sed 's/embed/watch/g')"
-mpv "$(wget -q -O- "$d" |grep -i data-video|cut -d\" -f6|grep '^http'|sort -r|grep -Ev '(thevideo|openload)' |head -n1)"
+mpv "$(wget -q -O- "$d" |grep -i data-video|cut -d\" -f6|grep '^http'|sort -R|grep -Ev '(thevideo|openload)' |head -n1)"
 if [ "$?" == 2 ]
 then 
-  mpv "$(wget -q -O- "$d" |grep -i data-video|cut -d\" -f6|grep '^http'|sort -r|grep -Ev '(openload|thevideo)'|head -n1)"
+  mpv "$(wget -q -O- "$d" |grep -i data-video|cut -d\" -f6|grep '^http'|sort -R|grep -Ev '(openload|thevideo)'|head -n1)"
 fi
 
 rm $tmp
