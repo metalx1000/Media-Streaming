@@ -36,7 +36,7 @@ do
   echo "${dom}${l}"
   d="$(echo "${dom}${l}"|cut -d\| -f1)"
   #dd="$(wget -q -O- "$d"|grep yourupload|cut -d\" -f6|sed 's/embed/watch/g')"
-  dd="$(wget -q -O- "$d" |grep -i data-video|cut -d\" -f6|grep '^http'|sort -r|grep -v openload|head -n1)"
+  dd="$(wget -q -O- "$d" |grep -i data-video|cut -d\" -f6|grep '^http'|sort -r|grep -Ev '(openload|thevideo)'|head -n1)"
   t="$(echo "${dom}${l}"|cut -d\| -f2|tr ":" "-")"
   echo "${red}########### DOWNLOADING $t - $ddd #############${default}"
   echo "${blue}${dd}${default}"
