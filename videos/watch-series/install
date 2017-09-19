@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; 
+then
+  echo "Root/Sudo permissions are needed."
+  echo "Trying to restart script with sudo"
+  sudo "$0"
+  exit
+fi
+
+#Install needed programs on Debian machine
+if [ ! -f /usr/bin/youtube-dl ] || [ ! -f /usr/bin/mpv ]
+then
+  echo "mpv and youtube-dl are needed, trying to install them now"
+  apt update && apt upgrade -y
+  apt install youtube-dl mpv ffmpeg
+fi
+
+cp watch-series-download.sh /usr/local/bin/watch-series-download
+cp watch-series-stream.sh /usr/local/bin/watch-series-stream
+
+echo "Thank you"
